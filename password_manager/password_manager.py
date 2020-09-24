@@ -9,7 +9,7 @@ tk.geometry('300x300')
 
 locker_pic = Canvas(tk,width = 125,height = 125)
 locker_pic.grid(row=0, column=1)
-image1 = PhotoImage(file='D:\Dhruv\lockerpic.png')
+image1 = PhotoImage(file='..\images\lockerpic.png')
 locker_pic.create_image(20,20, anchor=NW, image=image1)
 
 L1 = Label(tk, text="User Name").grid(row=1, column=0)
@@ -34,6 +34,7 @@ mybutton.grid(row=6, column=1)
 
 username = username_entry.get()
 password = password_entry.get()
+
 
 tk.mainloop()
 
