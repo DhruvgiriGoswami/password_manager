@@ -24,7 +24,9 @@ password_entry.grid(row=2, column=1)
 login_button = Button(tk, text ="LOGIN")
 login_button.grid(row=3, column=1)
 
+
 def openregister():
+
     regwindow=Toplevel(tk)
     regwindow.title("REGISTER")
     regwindow.geometry("250x200")
@@ -37,22 +39,24 @@ def openregister():
     new_password_entry = Entry(regwindow, bd=5)
     new_password_entry.grid(row=3, column=1)
 
-    register_button = Button(regwindow, text="REGISTER")
+
+    extracting_username = new_username_entry.get()
+    extracting_password = new_password_entry.get()
+    print(extracting_username)
+    print(extracting_password)
+
+    def register():
+
+        passwords_file = open("..\\password_manager\\passwords.txt","w")
+        passwords_file.write(extracting_username)
+        passwords_file.write(extracting_password)
+        passwords_file.close()
+        tk.quit()
+
+    register_button = Button(regwindow, text="REGISTER",command=register)
     register_button.grid(row=6, column=1)
+
 
 register_button = Button(tk, text ="REGISTER",command=openregister)
 register_button.grid(row=4, column=1)
-
-# def click():
-#     hello = "hello " + username_entry.get()
-#     mylabel = Label(tk, text = hello)
-#     mylabel.grid(row=5, column=1)
-# mybutton = Button(tk, text= "hi", command= click) 
-# mybutton.grid(row=6, column=1)
-
-
-username = username_entry.get()
-password = password_entry.get()
-
 tk.mainloop()
-
