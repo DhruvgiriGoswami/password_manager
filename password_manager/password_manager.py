@@ -22,7 +22,24 @@ password_entry.grid(row=2, column=1)
 
 login_button = Button(tk, text ="LOGIN")
 login_button.grid(row=3, column=1)
-register_button = Button(tk, text ="REGISTER")
+
+def openregister():
+    regwindow=Toplevel(tk)
+    regwindow.title("REGISTER")
+    regwindow.geometry("250x200")
+
+    Label(regwindow,text="Username").grid(row=2, column=0)
+    username_entry = Entry(regwindow, bd=5)
+    username_entry.grid(row=2, column=1)
+
+    Label(regwindow, text="Password").grid(row=3, column=0)
+    password_entry = Entry(regwindow, bd=5)
+    password_entry.grid(row=3, column=1)
+
+    register_button = Button(regwindow, text="REGISTER")
+    register_button.grid(row=6, column=1)
+
+register_button = Button(tk, text ="REGISTER",command=openregister)
 register_button.grid(row=4, column=1)
 
 def click():
@@ -34,7 +51,6 @@ mybutton.grid(row=6, column=1)
 
 username = username_entry.get()
 password = password_entry.get()
-
 
 tk.mainloop()
 
