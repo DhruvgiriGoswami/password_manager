@@ -7,6 +7,8 @@ tk = tkinter.Tk()
 tk.title("Password Manager")
 tk.geometry('300x300')
 
+icon_pic = PhotoImage(file = '..\images\keypic.png')
+tk.iconphoto(False, icon_pic)
 locker_pic = Canvas(tk,width = 125,height = 125)
 locker_pic.grid(row=0, column=1)
 image1 = PhotoImage(file='..\images\lockerpic.png')
@@ -59,4 +61,6 @@ def openregister():
 
 register_button = Button(tk, text ="REGISTER",command=openregister)
 register_button.grid(row=4, column=1)
+
+
 tk.mainloop()
