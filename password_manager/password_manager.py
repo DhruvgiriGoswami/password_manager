@@ -23,7 +23,17 @@ L2 = Label(tk, text="Password").grid(row=2, column=0)
 password_entry = Entry(tk, bd =5)
 password_entry.grid(row=2, column=1)
 
-login_button = Button(tk, text ="LOGIN")
+def login():
+
+    passwords_window= Toplevel(tk)
+    passwords_window.title("Passwords")
+    passwords_window.geometry("700x450")
+
+    scrollbar = Scrollbar(passwords_window)
+    scrollbar.grid(row=3, column=1)
+
+
+login_button = Button(tk, text ="LOGIN",command=login)
 login_button.grid(row=3, column=1)
 
 
