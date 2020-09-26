@@ -27,7 +27,7 @@ login_button = Button(tk, text ="LOGIN")
 login_button.grid(row=3, column=1)
 
 
-def openregister():
+def open_register_page():
 
     regwindow=Toplevel(tk)
     regwindow.title("REGISTER")
@@ -57,7 +57,7 @@ def openregister():
     register_button.grid(row=6, column=1)
 
 
-register_button = Button(tk, text ="REGISTER",command=openregister)
+register_button = Button(tk, text ="REGISTER",command=open_register_page)
 register_button.grid(row=4, column=1)
 
 
