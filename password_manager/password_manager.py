@@ -41,16 +41,14 @@ def openregister():
     new_password_entry = Entry(regwindow, bd=5)
     new_password_entry.grid(row=3, column=1)
 
-
-    extracting_username = new_username_entry.get()
-    extracting_password = new_password_entry.get()
-    print(extracting_username)
-    print(extracting_password)
-
     def register():
+
+        extracting_username = new_username_entry.get()
+        extracting_password = new_password_entry.get()
 
         passwords_file = open("..\\password_manager\\passwords.txt","w")
         passwords_file.write(extracting_username)
+        passwords_file.write(" ")
         passwords_file.write(extracting_password)
         passwords_file.close()
         tk.quit()
