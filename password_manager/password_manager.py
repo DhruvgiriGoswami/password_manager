@@ -29,9 +29,13 @@ def login():
     passwords_window.title("Passwords")
     passwords_window.geometry("700x450")
 
-    scrollbar = Scrollbar(passwords_window)
-    scrollbar.grid(row=3, column=1)
+    scrollbar_vertical = Scrollbar(passwords_window)
+    scrollbar_vertical.grid(row=0 ,column=1)
+    scrollbar_horizontal = Scrollbar(passwords_window, orient='horizontal')
+    scrollbar_horizontal.grid(row=1 ,column=0)
 
+    add_password_button = Button(passwords_window, text="Add Password")
+    add_password_button.grid(row= 2, column= 0)
 
 login_button = Button(tk, text ="LOGIN",command=login)
 login_button.grid(row=3, column=1)
