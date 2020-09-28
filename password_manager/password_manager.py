@@ -2,10 +2,18 @@
 
 import tkinter
 from tkinter import *
+import mysql.connector
+
+database= mysql.connector.connect(host="localhost",user="admin",passwd="admin",database="passprofiles")
+db_cursor= database.cursor()
+db_cursor.execute("show tables")
+for table in db_cursor:
+    print(table)
 
 tk = tkinter.Tk()
 tk.title("Password Manager")
 tk.geometry('300x300')
+
 
 icon_pic = PhotoImage(file = '..\images\keypic.png')
 tk.iconphoto(False, icon_pic)
@@ -14,11 +22,9 @@ locker_pic.grid(row=0, column=1)
 image1 = PhotoImage(file='..\images\lockerpic.png')
 locker_pic.create_image(20,20, anchor=NW, image=image1)
 
-
 L1 = Label(tk, text="User Name").grid(row=1, column=0)
 username_entry = Entry(tk, bd =5)
 username_entry.grid(row=1, column=1)
-
 L2 = Label(tk, text="Password").grid(row=2, column=0)
 password_entry = Entry(tk, bd =5)
 password_entry.grid(row=2, column=1)
