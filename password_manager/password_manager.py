@@ -4,12 +4,12 @@ import tkinter
 from tkinter import *
 import mysql.connector
 
-database= mysql.connector.connect(host="localhost",user="admin",passwd="admin",database="passprofiles")
-db_cursor= database.cursor()
-db_cursor.execute("show tables")
+#database= mysql.connector.connect(host="localhost",user="admin",passwd="admin",database="passprofiles")
+#db_cursor= database.cursor()
+#db_cursor.execute("show tables")
 #db_cursor.execute("select * from profiles")
-for table in db_cursor:
-    print(table)
+#for table in db_cursor:
+    #print(table)
 
 tk = tkinter.Tk()
 tk.title("Password Manager")
@@ -41,8 +41,6 @@ def login():
     scrollbar_horizontal = Scrollbar(passwords_window, orient='horizontal')
     scrollbar_horizontal.grid(row=1 ,column=3)
 
-    add_password_button = Button(passwords_window, text="Add Data")
-    add_password_button.grid(row= 2, column= 3)
     
     L3 = Label(passwords_window, text="New Website name")
     L3.grid(row=0 ,column=0)
@@ -58,6 +56,22 @@ def login():
     L3.grid(row=0 ,column=4)
     new_password_entry = Entry(passwords_window)
     new_password_entry.grid(row=0 ,column=5)
+
+    def add_data():
+
+        ext_website_entry = new_website_entry.get()
+        ext_username_entry = new_username_entry.get()
+        ext_password_entry = new_password_entry.get()
+
+        database = mysql.connector.connect(host="localhost", user="admin", passwd="admin", database="passprofiles")
+        db_cursor = database.cursor()
+        querry = "insert into profile values('{}','{}','{}')".format(ext_website_entry,ext_username_entry,ext_password_entry)
+        db_cursor.execute(querry)
+        db_cursor.execute("commit")
+        print('success')
+
+    add_password_button = Button(passwords_window, text="Add Data",command=add_data)
+    add_password_button.grid(row=2, column=3)
 
 
 
