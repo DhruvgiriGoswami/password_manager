@@ -3,13 +3,7 @@
 import tkinter
 from tkinter import *
 import mysql.connector
-
-#database= mysql.connector.connect(host="localhost",user="admin",passwd="admin",database="passprofiles")
-#db_cursor= database.cursor()
-#db_cursor.execute("show tables")
-#db_cursor.execute("select * from profiles")
-#for table in db_cursor:
-    #print(table)
+#import encryption 
 
 tk = tkinter.Tk()
 tk.title("Password Manager")
@@ -31,44 +25,48 @@ password_entry = Entry(tk, bd =5)
 password_entry.grid(row=2, column=1)
 
 def login():
+    #verify login now
+    verify = passwords_file.read()
+    
+    #gotta work here above
+    def ifloginsuccess():
+        passwords_window= Toplevel(tk)
+        passwords_window.title("Passwords")
+        passwords_window.geometry("730x450")
 
-    passwords_window= Toplevel(tk)
-    passwords_window.title("Passwords")
-    passwords_window.geometry("730x450")
-
-    scrollbar_vertical = Scrollbar(passwords_window)
-    scrollbar_vertical.grid(row=0 ,column=6)
-    scrollbar_horizontal = Scrollbar(passwords_window, orient='horizontal')
-    scrollbar_horizontal.grid(row=1 ,column=3)
+        scrollbar_vertical = Scrollbar(passwords_window)
+        scrollbar_vertical.grid(row=0 ,column=6)
+        scrollbar_horizontal = Scrollbar(passwords_window, orient='horizontal')
+        scrollbar_horizontal.grid(row=1 ,column=3)
 
     
-    L3 = Label(passwords_window, text="New Website name")
-    L3.grid(row=0 ,column=0)
-    new_website_entry = Entry(passwords_window)
-    new_website_entry.grid(row=0 ,column=1)
+        L3 = Label(passwords_window, text="New Website name")
+        L3.grid(row=0 ,column=0)
+        new_website_entry = Entry(passwords_window)
+        new_website_entry.grid(row=0 ,column=1)
 
-    L3 = Label(passwords_window, text="New Username")
-    L3.grid(row=0 ,column=2)
-    new_username_entry = Entry(passwords_window)
-    new_username_entry.grid(row=0 ,column=3)
+        L3 = Label(passwords_window, text="New Username")
+        L3.grid(row=0 ,column=2)
+        new_username_entry = Entry(passwords_window)
+        new_username_entry.grid(row=0 ,column=3)
 
-    L3 = Label(passwords_window, text="New Password")
-    L3.grid(row=0 ,column=4)
-    new_password_entry = Entry(passwords_window)
-    new_password_entry.grid(row=0 ,column=5)
+        L3 = Label(passwords_window, text="New Password")
+        L3.grid(row=0 ,column=4)
+        new_password_entry = Entry(passwords_window)
+        new_password_entry.grid(row=0 ,column=5)
 
-    def add_data():
+        def add_data():
 
-        ext_website_entry = new_website_entry.get()
-        ext_username_entry = new_username_entry.get()
-        ext_password_entry = new_password_entry.get()
+            ext_website_entry = new_website_entry.get()
+            ext_username_entry = new_username_entry.get()
+            ext_password_entry = new_password_entry.get()
 
-        database = mysql.connector.connect(host="localhost", user="admin", passwd="admin", database="passprofiles")
-        db_cursor = database.cursor()
-        querry = "insert into profile values('{}','{}','{}')".format(ext_website_entry,ext_username_entry,ext_password_entry)
-        db_cursor.execute(querry)
-        db_cursor.execute("commit")
-        print('success')
+            database = mysql.connector.connect(host="localhost", user="admin", passwd="admin", database="passprofiles")
+            db_cursor = database.cursor()
+            querry = "insert into profiles values('{}','{}','{}')".format(ext_website_entry,ext_username_entry,ext_password_entry)
+            db_cursor.execute(querry)
+            db_cursor.execute("commit")
+            print('success')
 
     add_password_button = Button(passwords_window, text="Add Data",command=add_data)
     add_password_button.grid(row=2, column=3)
@@ -94,16 +92,22 @@ def open_register_page():
     new_registration_password_entry.grid(row=3, column=1)
 
     def register():
-
         extracting_username = new_registration_username_entry.get()
         extracting_password = new_registration_password_entry.get()
 
-        passwords_file = open("..\\password_manager\\passwords.txt","w")
-        passwords_file.write(extracting_username)
-        passwords_file.write(" ")
-        passwords_file.write(extracting_password)
-        passwords_file.close()
-        tk.quit()
+        global passwords_file
+        passwords_file = open("..\\password_manager\\logins.txt","a+")
+        passwords_file_readonly = open("..\\password_manager\\logins.txt","r")
+
+        if extracting_username in passwords_file_readonly.read():
+            print("This username is already chosen, please choose another username.")
+
+        else:
+            passwords_file = open("..\\password_manager\\logins.txt","a+")
+            passwords_file.write(extracting_username + "\n")
+            passwords_file.write(extracting_password + "\n")
+            passwords_file.close()
+            tk.quit()
 
     register_button = Button(regwindow, text="REGISTER",command=register)
     register_button.grid(row=6, column=1)
