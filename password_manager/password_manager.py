@@ -26,8 +26,7 @@ password_entry.grid(row=2, column=1)
 
 def login():
     #verify login now
-    verify = passwords_file.read()
-    
+    #login_file_readonly
     #gotta work here above
     def ifloginsuccess():
         passwords_window= Toplevel(tk)
@@ -95,18 +94,18 @@ def open_register_page():
         extracting_username = new_registration_username_entry.get()
         extracting_password = new_registration_password_entry.get()
 
-        global passwords_file
-        passwords_file = open("..\\password_manager\\logins.txt","a+")
-        passwords_file_readonly = open("..\\password_manager\\logins.txt","r")
+        global login_file
+        login_file = open("..\\password_manager\\logins.txt","a+")
+        login_file_readonly = open("..\\password_manager\\logins.txt","r")
 
-        if extracting_username in passwords_file_readonly.read():
+        if extracting_username in login_file_readonly.read():
             print("This username is already chosen, please choose another username.")
 
         else:
-            passwords_file = open("..\\password_manager\\logins.txt","a+")
-            passwords_file.write(extracting_username + "\n")
-            passwords_file.write(extracting_password + "\n")
-            passwords_file.close()
+            login_file = open("..\\password_manager\\logins.txt","a+")
+            login_file.write(extracting_username + "\n")
+            login_file.write(extracting_password + "\n")
+            login_file.close()
             tk.quit()
 
     register_button = Button(regwindow, text="REGISTER",command=register)
