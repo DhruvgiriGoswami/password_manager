@@ -77,7 +77,7 @@ def login():
                 database.close()
                 output = ''
                 for x in lst0:
-                    output = output + x[0] + '  |' + x[1] + '  |' + x[2] + '\n'
+                    output = output + x[0] + '  |' + x[1] + '  |' + x[2] + '\n' + "Website Name | User Name | Password" + "\n" + "\n" + "\n"
                 print(output)
                 return output
 
