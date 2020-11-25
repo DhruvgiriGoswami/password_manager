@@ -36,12 +36,7 @@ def login():
 
             passwords_window= Toplevel(tk)
             passwords_window.title("Passwords")
-            passwords_window.geometry("730x450")
-
-            scrollbar_vertical = Scrollbar(passwords_window)
-            scrollbar_vertical.grid(row=0 ,column=6)
-            scrollbar_horizontal = Scrollbar(passwords_window, orient='horizontal')
-            scrollbar_horizontal.grid(row=1 ,column=3)
+            passwords_window.geometry("790x450")
 
     
             L3 = Label(passwords_window, text="New Website name")
@@ -74,8 +69,7 @@ def login():
 
             def fetchdata():
 
-                database = mysql.connector.connect(host="localhost", user="admin", passwd="admin",
-                                                   database="passprofiles")
+                database = mysql.connector.connect(host="localhost", user="admin", passwd="admin",database="passprofiles")
                 db_cursor = database.cursor()
                 db_cursor.execute("select * from profile")
                 lst0 = db_cursor.fetchall()
@@ -83,7 +77,7 @@ def login():
                 database.close()
                 output = ''
                 for x in lst0:
-                    output = output + x[0] + ' ' + x[1] + ' ' + x[2] + '\n'
+                    output = output + x[0] + '  |' + x[1] + '  |' + x[2] + '\n'
                 print(output)
                 return output
 
@@ -94,7 +88,7 @@ def login():
             add_password_button.grid(row=4, column=3)
 
             add_password_button = Button(passwords_window, text="Add Data",command=add_data)
-            add_password_button.grid(row=2, column=3)
+            add_password_button.grid(row=3, column=3)
 
         else:
             print("incorrect password")
