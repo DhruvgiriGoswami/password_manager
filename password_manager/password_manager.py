@@ -78,17 +78,17 @@ def login():
                 output = ''
                 for x in lst0:
                     output = output + x[0] + '  |' + x[1] + '  |' + x[2] + '\n' + "Website Name | User Name | Password" + "\n" + "\n" + "\n"
-                print(output)
+
                 return output
 
             text = Text(passwords_window, height=10, width=80)
             text.grid(row=7, columnspan=5)
 
-            add_password_button = Button(passwords_window, text="fetchdata",command=lambda: text.insert(END, fetchdata()))
-            add_password_button.grid(row=4, column=3)
+            fetch_data_button = Button(passwords_window, text="fetchdata",command=lambda: text.insert(END, fetchdata()))
+            fetch_data_button.grid(row=4, column=3)
 
-            add_password_button = Button(passwords_window, text="Add Data",command=add_data)
-            add_password_button.grid(row=3, column=3)
+            add_data_button = Button(passwords_window, text="Add Data",command=add_data)
+            add_data_button.grid(row=3, column=3)
 
         else:
             print("incorrect password")
