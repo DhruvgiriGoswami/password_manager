@@ -67,6 +67,14 @@ def login():
             db_cursor.execute("commit")
             print('success')
 
+        def fetchdata():
+
+            database = mysql.connector.connect(host="localhost", user="admin", passwd="admin", database="passprofiles")
+            db_cursor = database.cursor()
+            db_cursor.execute("select * from profiles")
+            lst0=db_cursor.fetchall()
+            db_cursor.close()
+
     add_password_button = Button(passwords_window, text="Add Data",command=add_data)
     add_password_button.grid(row=2, column=3)
 
