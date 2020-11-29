@@ -56,22 +56,32 @@ def login():
 
             def add_data():
 
+                usrnm= username_entry.get()
+
                 ext_website_entry = new_website_entry.get()
                 ext_username_entry = new_username_entry.get()
                 ext_password_entry = new_password_entry.get()
 
-                database = mysql.connector.connect(host="localhost", user="admin", passwd="admin", database="passprofiles")
+                database = mysql.connector.connect(host="localhost", user="admin", passwd="admin")
                 db_cursor = database.cursor()
-                querry = "insert into profiles values('{}','{}','{}')".format(ext_website_entry,ext_username_entry,ext_password_entry)
+                querry1 = "use {}".format(usrnm)
+                db_cursor.execute(querry1)
+                querry = "insert into {} values('{}','{}','{}')".format(usrnm,ext_website_entry,ext_username_entry,ext_password_entry)
                 db_cursor.execute(querry)
-                db_cursor.execute("commit")
+                database.commit()
                 print('success')
 
             def fetchdata():
 
-                database = mysql.connector.connect(host="localhost", user="admin", passwd="admin",database="passprofiles")
-                db_cursor = database.cursor()
-                db_cursor.execute("select * from profile")
+                usrnm= username_entry.get()
+
+                database = mysql.connector.connect(host="localhost", user="admin", passwd="admin")
+                db_cursor = database.cursor(buffered=True)
+                a1="use {}".format(usrnm)
+                db_cursor.execute(a1)
+                b1="select * from {}".format(usrnm)
+                db_cursor.execute(b1)
+                database.commit()
                 lst0 = db_cursor.fetchall()
                 db_cursor.close()
                 database.close()
@@ -117,6 +127,17 @@ def open_register_page():
     def register():
         extracting_username = new_registration_username_entry.get()
         extracting_password = new_registration_password_entry.get()
+
+        database = mysql.connector.connect(host="localhost", user="admin", passwd="admin")
+        db_cursor = database.cursor()
+        querry2 = "create database {}".format(extracting_username)
+        db_cursor.execute(querry2)
+        querry3 = "use {}".format(extracting_username)
+        db_cursor.execute(querry3)
+        querry1 = "create table {}(Website varchar(100) primary key,Username varchar(50),Password varchar(50))".format(extracting_username)
+        db_cursor.execute(querry1)
+        database.commit()
+        print('success')
 
         global login_file
         login_file = open("..\\password_manager\\logins.txt","a+")

@@ -10,3 +10,7 @@ raju
 gos
 gajodhar
 sixtyfive
+table2
+gundu
+table4
+Thanda
