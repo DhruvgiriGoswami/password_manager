@@ -1,7 +1,5 @@
 
 
-
-
 import tkinter
 from tkinter import *
 import mysql.connector
@@ -69,7 +67,6 @@ def login():
                 querry = "insert into {} values('{}','{}','{}')".format(usrnm,ext_website_entry,ext_username_entry,ext_password_entry)
                 db_cursor.execute(querry)
                 database.commit()
-                print('success')
 
             def fetchdata():
 
@@ -137,7 +134,6 @@ def open_register_page():
         querry1 = "create table {}(Website varchar(100) primary key,Username varchar(50),Password varchar(50))".format(extracting_username)
         db_cursor.execute(querry1)
         database.commit()
-        print('success')
 
         global login_file
         login_file = open("..\\password_manager\\logins.txt","a+")
