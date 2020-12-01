@@ -26,11 +26,16 @@ password_entry.grid(row=2, column=1)
 def login():
 
     login_file_readonly = open("..\\password_manager\\logins.txt","r")
+    reading_content = login_file_readonly.read()
+    login_aftersplit = reading_content.split("#$#$#")
 
-    #verify login now
-    if username_entry.get() in login_file_readonly.read():
+    if username_entry.get() in login_aftersplit:
         login_file_readonly = open("..\\password_manager\\logins.txt","r")
-        if password_entry.get() in login_file_readonly.read():
+        userindex = login_aftersplit.index(username_entry.get())
+        password = login_aftersplit[userindex + 1]
+
+
+        if password == password_entry.get():
 
             passwords_window= Toplevel(tk)
             passwords_window.title("Passwords")
@@ -101,7 +106,7 @@ def login():
             print("incorrect password")
     else:
         print("invalid credentials")
-    #gotta work here above
+
 
 login_button = Button(tk, text ="LOGIN",command=login)
 login_button.grid(row=3, column=1)
@@ -125,16 +130,6 @@ def open_register_page():
         extracting_username = new_registration_username_entry.get()
         extracting_password = new_registration_password_entry.get()
 
-        database = mysql.connector.connect(host="localhost", user="admin", passwd="admin")
-        db_cursor = database.cursor()
-        querry2 = "create database {}".format(extracting_username)
-        db_cursor.execute(querry2)
-        querry3 = "use {}".format(extracting_username)
-        db_cursor.execute(querry3)
-        querry1 = "create table {}(Website varchar(100) primary key,Username varchar(50),Password varchar(50))".format(extracting_username)
-        db_cursor.execute(querry1)
-        database.commit()
-
         global login_file
         login_file = open("..\\password_manager\\logins.txt","a+")
         login_file_readonly = open("..\\password_manager\\logins.txt","r")
@@ -144,10 +139,24 @@ def open_register_page():
 
         else:
             login_file = open("..\\password_manager\\logins.txt","a+")
-            login_file.write(extracting_username + "\n")
-            login_file.write(extracting_password + "\n")
+            login_file.write(extracting_username + "#$#$#"+ extracting_password + "#$#$#")
+            login_file_readonly = open("..\\password_manager\\logins.txt","r")
+            login_file_readonly_read = login_file_readonly.read()
+            login_file_after_split = login_file_readonly_read.split("#$#$#")
             login_file.close()
             tk.quit()
+
+            database = mysql.connector.connect(host="localhost", user="admin", passwd="admin")
+            db_cursor = database.cursor()
+            querry2 = "create database {}".format(extracting_username)
+            db_cursor.execute(querry2)
+            querry3 = "use {}".format(extracting_username)
+            db_cursor.execute(querry3)
+            querry1 = "create table {}(Website varchar(100) primary key,Username varchar(50),Password varchar(50))".format(extracting_username)
+            db_cursor.execute(querry1)
+            database.commit()
+
+        
 
     register_button = Button(regwindow, text="REGISTER",command=register)
     register_button.grid(row=6, column=1)
